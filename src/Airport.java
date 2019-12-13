@@ -1,18 +1,30 @@
+import java.util.ArrayList;
+
 public class Airport {
+    private String city;
     private String name;
     private Location location;
-    private String[] connections;
+    private ArrayList<String> connections;
     private int landingTrack;
     private OfficeHours officeHours;
 
     public Airport(){}
 
-    public Airport(String name, Location location, String[] connections, int landingTrack, OfficeHours officeHours) {
+    public Airport(String city, String name, Location location, ArrayList<String> connections, int landingTrack, OfficeHours officeHours) {
+        this.city = city;
         this.name = name;
         this.location = location;
         this.connections = connections;
         this.landingTrack = landingTrack;
         this.officeHours = officeHours;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public void setName(String name) {
@@ -23,7 +35,7 @@ public class Airport {
         this.location = location;
     }
 
-    public void setConnections(String[] connections) {
+    public void setConnections(ArrayList<String> connections) {
         this.connections = connections;
     }
 
@@ -43,7 +55,7 @@ public class Airport {
         return location;
     }
 
-    public String[] getConnections() {
+    public ArrayList<String> getConnections() {
         return connections;
     }
 
@@ -53,5 +65,17 @@ public class Airport {
 
     public OfficeHours getOfficeHours() {
         return officeHours;
+    }
+
+    @Override
+    public String toString() {
+        return "Airport{" +
+                "\ncity='" + city + '\'' +
+                ", \nname='" + name + '\'' +
+                ", \n" + location.toString() +
+                ", \nconnections=" + connections.toString() +
+                ", \nlandingTrack=" + landingTrack +
+                ", \n" + officeHours.toString() +
+                '}';
     }
 }

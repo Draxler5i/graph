@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Location {
     private String country;
     private String city;
@@ -19,5 +21,14 @@ public class Location {
 
     public long[] getLocation() {
         return location;
+    }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", location=" + Arrays.toString(location) +
+                '}';
     }
 }

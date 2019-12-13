@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class OfficeHours {
     private String[] days;
     private String open;
@@ -19,5 +21,14 @@ public class OfficeHours {
 
     public String getClose() {
         return close;
+    }
+
+    @Override
+    public String toString() {
+        return "OfficeHours{" +
+                "days=" + Arrays.toString(days) +
+                ", open='" + open + '\'' +
+                ", close='" + close + '\'' +
+                '}';
     }
 }

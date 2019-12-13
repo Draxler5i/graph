@@ -1,16 +1,18 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 public class AuxiliaryFunctions {
 
     public static Airport[] generateAirports(int cantAirports) {
         Airport[] airports = new Airport[cantAirports];
-        for (int i = 0; i < cantAirports -1; i++) {
+        for (int i = 0; i < cantAirports; i++) {
             airports[i] = generateAirport();
         }
         return airports;
     }
     private static Airport generateAirport() {
         Airport airport = new Airport();
+        airport.setCity(getCities()[new Random().nextInt(getCities().length)]);
         airport.setName(getAirportNames()[new Random().nextInt(getAirportNames().length)]);
         airport.setLocation(getLocations()[new Random().nextInt(getLocations().length)]);
         airport.setConnections(getConnections());
@@ -18,13 +20,25 @@ public class AuxiliaryFunctions {
         airport.setOfficeHours(getOfficeHours()[new Random().nextInt(getOfficeHours().length)]);
         return airport;
     }
+
+    private static String[] getCities() {
+//        String[] cities = {"Cochabamba", "Los Angeles", "Santa Cruz", "Lima", "Sao Paulo", "Santiago"};
+        String[] cities = {"Santa Cruz", "Lima"};
+        return cities;
+    }
+
     private static String[] getAirportNames() {
-        String[] names = {"LA Airport, Jorge Wilstermann"};
+        String[] names = {"LA Airport","Jorge Wilstermann", "Lima airport"};
         return names;
     }
     private static Location[] getLocations() {
         long[] location = {(long) 15.666, (long) -11.435 };
-        Location[] locations = {(new Location("EEUU", "Los Angeles", location))};
+//        String city = getCities()[new Random().nextInt(getCities().length)];
+//        String city2 = getCities()[new Random().nextInt(getCities().length)];
+        String city = "Lima";
+        String city2 = "Santa Cruz";
+//        "Cochabamba", "Los Angeles", "Santa Cruz", "Lima", "Sao Paulo", "Santiago"
+        Location[] locations = {(new Location("EEUU", city, location)), (new Location("Bolivia", city2, location))};
         return locations;
     }
     private static int[] getLandingTrack() {
@@ -39,12 +53,15 @@ public class AuxiliaryFunctions {
         OfficeHours[] officeHours = {of1, of2, of3};
         return officeHours;
     }
-    private static String[] getConnections() {
+    private static ArrayList<String> getConnections() {
         Location[] locations = getLocations();
-        int randomCantLocation = new Random().nextInt(locations.length);
-        String[] connections = new String[randomCantLocation];
-        for (int i = 0; i < connections.length; i++) {
-            connections[i] = locations[new Random().nextInt(locations.length)].getCity();
+        int randomCantLocation = new Random().nextInt(locations.length + 1);
+        if (randomCantLocation == 0) {
+            randomCantLocation = 1;
+        }
+        ArrayList<String> connections = new ArrayList<>();
+        for (int i = 0; i < randomCantLocation; i++) {
+            connections.add(locations[new Random().nextInt(locations.length)].getCity());
         }
         return connections;
     }
