@@ -127,13 +127,35 @@ public class AuxiliaryFunctions {
     }
 
     private static Fly generateFly(String origin, String destiny) {
-//        Airplane airplane;
-//        Location origin;
-//        Location destiny;
-//        String boardingTime;
-//        Date date;
-//        FlyStateEnum state;
-//        String timeFly;
-        return new Fly(null, null, null, null, null, null, null);
+        return new Fly(
+                generateListAirplane()[new Random().nextInt(generateListAirplane().length)],
+                generateLocation()[new Random().nextInt(generateLocation().length)],
+                generateLocation()[new Random().nextInt(generateLocation().length)],
+                "40 min",
+                new Date(),
+                FlyStateEnum.origin,
+                "40 min"
+        );
+    }
+
+    private static Airplane[] generateListAirplane() {
+        Airplane[] airplanes = new Airplane[5];
+        airplanes[0] = new Airplane(00001, "Boing 776", 180);
+        airplanes[1] = new Airplane(00002, "Boing 847", 160);
+        airplanes[2] = new Airplane(00003, "Boing 651", 190);
+        airplanes[3] = new Airplane(00004, "Boing 318", 200);
+        airplanes[4] = new Airplane(00005, "Boing 564", 165);
+        return airplanes;
+    }
+
+    private static Location[] generateLocation() {
+        Location[] locations = new Location[3];
+        long[] loc1 = new long[]{ (long) 15.124, (long) -13.543};
+        long[] loc2 = new long[]{ (long) 16.821, (long) -11.703};
+        long[] loc3 = new long[]{ (long) 17.184, (long) -12.441};
+        locations[0] = new Location("Bolivia", "Cochabamba", loc1);
+        locations[1] = new Location("Bolivia", "Santa Cruz", loc2);
+        locations[2] = new Location("Bolivia", "La Paz", loc3);
+        return locations;
     }
 }
