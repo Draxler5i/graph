@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Airport {
     private String city;
@@ -7,16 +8,21 @@ public class Airport {
     private ArrayList<String> connections;
     private int landingTrack;
     private OfficeHours officeHours;
+    private List<Airplane> airplanes;
+    private List<Fly> dailySchedule;
 
     public Airport(){}
 
-    public Airport(String city, String name, Location location, ArrayList<String> connections, int landingTrack, OfficeHours officeHours) {
+    public Airport(String city, String name, Location location, ArrayList<String> connections, int landingTrack,
+                   OfficeHours officeHours, List<Fly> dailySchedule, List<Airplane> airplanes) {
         this.city = city;
         this.name = name;
         this.location = location;
         this.connections = connections;
         this.landingTrack = landingTrack;
         this.officeHours = officeHours;
+        this.dailySchedule = dailySchedule;
+        this.airplanes = airplanes;
     }
 
     public String getCity() {
@@ -47,6 +53,10 @@ public class Airport {
         this.officeHours = officeHours;
     }
 
+    public void setDailySchedule(List<Fly> dailySchedule) {
+        this.dailySchedule = dailySchedule;
+    }
+
     public String getName() {
         return name;
     }
@@ -65,6 +75,14 @@ public class Airport {
 
     public OfficeHours getOfficeHours() {
         return officeHours;
+    }
+
+    public List<Fly> getDailySchedule() {
+        return dailySchedule;
+    }
+
+    public List<Airplane> getAirplanes() {
+        return airplanes;
     }
 
     @Override

@@ -1,70 +1,69 @@
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Graph {
     private boolean[][] graphMatrix;
     private Airport[] airports;
-    private int numVertex;
 
     public Graph(int cantAirports) {
         airports = AuxiliaryFunctions.generateAirports(cantAirports);
         this.graphMatrix = new boolean[cantAirports][cantAirports];
-        this.numVertex = cantAirports;
         assignAirportsConnections();
     }
 
-    public Airport[] getAirports() {
-        return airports;
+    public Graph(Airport[] airports) {
+        int size = airports.length;
+        this.airports = airports;
+        this.graphMatrix = new boolean[size][size];
+        assignAirportsConnections();
     }
 
-    private void fillGraphMatrix(ArrayList<Integer> position) {
-        for (int i = 0; i < position.size(); i++) {
-            int posXY = position.get(i);
-            this.graphMatrix[posXY][posXY] = true;
+    private void findPositionOnList(int posList, ArrayList<String> connections, Airport[] airports) {
+        List<String> airportNames = new ArrayList<>();
+        for (Airport airport: airports) {
+            airportNames.add(airport.getCity());
         }
-    }
 
-//    private ArrayList<String> getNameConnections(Airport airport) {
-//        ArrayList<String> res = new ArrayList<>();
-//        for (int i = 0; i < airport.getConnections().size(); i++) {
-//            res.add(airport.getConnections().get(i));
-//        }
-//        return  res;
-//    }
-
-    private ArrayList<Integer> findPositionOnList(ArrayList<String> connections, Airport[] airports) {
-        ArrayList<Integer> res = new ArrayList<>();
         for (int i = 0; i < connections.size(); i++) {
-            if (connections.get(i) == airports[i].getCity()) {
-                res.add(i);
+            int compare = airportNames.indexOf(connections.get(i));
+            if (compare != -1) {
+                addEdge(posList, compare);
             }
         }
-        return res;
+    }
+
+    private void addEdge(int x, int y) {
+        this.graphMatrix[x][y] = true;
     }
 
     private void assignAirportsConnections() {
         int sizeMatrix = graphMatrix.length;
         for (int i = 0; i < sizeMatrix ; i++) {
-//            ArrayList<String> connections = getNameConnections(airports[i]);
             ArrayList<String> connections = airports[i].getConnections();
-            ArrayList<Integer> positionList = findPositionOnList(connections, airports);
-            fillGraphMatrix(positionList);
-            System.out.println("****************************************");
-            System.out.println("Airport: "+ airports[i].getName());
-            System.out.println("Connections: "+ connections.toString());
-            System.out.println("positionList: "+ positionList.toString());
-            System.out.println("position Global\n");
-            printGraph();
-            System.out.println("****************************************");
+            findPositionOnList(i, connections, airports);
         }
     }
 
-    @Override
-    public String toString() {
-        return "Graph{" +
-                "graphMatrix=" + Arrays.toString(graphMatrix) + //Not work
-                '}';
+    public List<FlightPlan> calculateFlightPlanByAirplane() {
+        List<FlightPlan> res = new ArrayList<>();
+        List<Airplane> airplanes = new ArrayList<>();
+        for (Airport airport: airports) {
+            for (Airplane airplane: airport.getAirplanes()) {
+                airplanes.add(airplane);
+            }
+        }
+
+        //Eliminamos duplicados
+        Set<Airplane> hashSet = new HashSet<>(airplanes);
+        airplanes.clear();
+        airplanes.addAll(hashSet);
+
+
+        return res;
     }
+
 
     public void printGraph() {
         int rows = graphMatrix.length;
