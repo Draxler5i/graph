@@ -14,7 +14,7 @@ public class AuxiliaryFunctions {
     }
 
     //Todos los aeropuertos deben tener los mismos destinos, para poder crear correctamente el grafo de matriz adyacente
-    public static Airport[] get3airports() {
+    public static Airport[] getStaticAirports() {
 
         Airport[] airports = new Airport[3];
         long[] long1 = { (long) 1.2, (long) 4.5};
@@ -122,11 +122,61 @@ public class AuxiliaryFunctions {
 
     private static List<Fly> generateSchedule(ArrayList<String> connections, Location location) {
         List<Fly> schedule = new ArrayList<>();
+        schedule.add(
+                new Fly(
+                        generateListAirplane()[new Random().nextInt(generateListAirplane().length)],
+                        generateLocation()[new Random().nextInt(generateLocation().length)],
+                        generateLocation()[new Random().nextInt(generateLocation().length)],
+                        "45 min",
+                        new Date(),
+                        FlyStateEnum.origin,
+                        "30 min")
+        );
+        schedule.add(
+                new Fly(
+                        generateListAirplane()[new Random().nextInt(generateListAirplane().length)],
+                        generateLocation()[new Random().nextInt(generateLocation().length)],
+                        generateLocation()[new Random().nextInt(generateLocation().length)],
+                        "45 min",
+                        new Date(),
+                        FlyStateEnum.origin,
+                        "30 min")
+        );
+        schedule.add(
+                new Fly(
+                        generateListAirplane()[new Random().nextInt(generateListAirplane().length)],
+                        generateLocation()[new Random().nextInt(generateLocation().length)],
+                        generateLocation()[new Random().nextInt(generateLocation().length)],
+                        "40 min",
+                        new Date(),
+                        FlyStateEnum.origin,
+                        "40 min")
+        );
+        schedule.add(
+                new Fly(
+                        generateListAirplane()[new Random().nextInt(generateListAirplane().length)],
+                        generateLocation()[new Random().nextInt(generateLocation().length)],
+                        generateLocation()[new Random().nextInt(generateLocation().length)],
+                        "40 min",
+                        new Date(),
+                        FlyStateEnum.origin,
+                        "35 min")
+        );
+        schedule.add(
+                new Fly(
+                        generateListAirplane()[new Random().nextInt(generateListAirplane().length)],
+                        generateLocation()[new Random().nextInt(generateLocation().length)],
+                        generateLocation()[new Random().nextInt(generateLocation().length)],
+                        "45 min",
+                        new Date(),
+                        FlyStateEnum.origin,
+                        "40 min")
+        );
 
         return schedule;
     }
 
-    private static Fly generateFly(String origin, String destiny) {
+    private static Fly generateFly() {
         return new Fly(
                 generateListAirplane()[new Random().nextInt(generateListAirplane().length)],
                 generateLocation()[new Random().nextInt(generateLocation().length)],
@@ -157,5 +207,11 @@ public class AuxiliaryFunctions {
         locations[1] = new Location("Bolivia", "Santa Cruz", loc2);
         locations[2] = new Location("Bolivia", "La Paz", loc3);
         return locations;
+    }
+
+    private static Location getLocation(String country, String city) {
+        long[] loc1 = new long[]{ (long) 15.124, (long) -13.543};
+        Location location = new Location(country, city, loc1);
+        return location;
     }
 }

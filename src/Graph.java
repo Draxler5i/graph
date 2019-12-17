@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Graph {
     private boolean[][] graphMatrix;
@@ -60,7 +57,9 @@ public class Graph {
         airplanes.clear();
         airplanes.addAll(hashSet);
 
-
+        for (Airplane airplane: airplanes ) {
+            res.add(new FlightPlan(airplane, airports[new Random().nextInt(airports.length)].getLocation(), new Location[]{}, airports[new Random().nextInt(airports.length)].getLocation()));
+        }
         return res;
     }
 
